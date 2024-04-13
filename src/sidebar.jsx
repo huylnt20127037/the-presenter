@@ -6,6 +6,7 @@ import { IoPauseCircleOutline } from "react-icons/io5";
 import { IoIosMove } from "react-icons/io";
 import { AppColor } from "./theme";
 import useActionStore from "./action-zustand";
+import ActionModal from "./action-modal";
 
 const Sidebar = () => {
   const { isModalOpenedWithType, setModalType } = useActionStore();
@@ -59,7 +60,7 @@ const Sidebar = () => {
         </Button>
       ))}
 
-      <Text>{isModalOpenedWithType}</Text>
+      {isModalOpenedWithType && <ActionModal />}
     </Stack>
   );
 };

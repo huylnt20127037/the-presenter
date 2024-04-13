@@ -7,12 +7,13 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
+import { AppColor } from "../../theme";
 
 const AppModal = ({ headerText, body, footer, onClose }) => {
   return (
     <Modal isOpen={true} onClose={onClose} size="xl">
       <ModalOverlay />
-      <ModalContent>
+      <ModalContent bgColor={AppColor.primary} color={AppColor.text}>
         <ModalHeader>{headerText}</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{body}</ModalBody>
