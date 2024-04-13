@@ -5,28 +5,31 @@ import { RiSpeakLine } from "react-icons/ri";
 import { IoPauseCircleOutline } from "react-icons/io5";
 import { IoIosMove } from "react-icons/io";
 import { AppColor } from "./theme";
+import useActionStore from "./action-zustand";
 
 const Sidebar = () => {
+  const { isModalOpenedWithType, setModalType } = useActionStore();
+
   const actions = [
     {
       icon: <RiSpeakLine />,
       text: "Thêm câu thoại",
-      onClick: undefined,
+      onClick: () => setModalType("Thêm câu thoại"),
     },
     {
       icon: <IoPauseCircleOutline />,
       text: "Thêm khoảng nghỉ",
-      onClick: undefined,
+      onClick: () => setModalType("Thêm khoảng nghỉ"),
     },
     {
       icon: <IoIosMove />,
       text: "Di chuyển",
-      onClick: undefined,
+      onClick: () => setModalType("Di chuyển"),
     },
     {
       icon: <MdOutlineDescription />,
       text: "Nhập thoại từ văn bản",
-      onClick: undefined,
+      onClick: () => setModalType("Nhập thoại từ văn bản"),
     },
   ];
 
@@ -50,10 +53,13 @@ const Sidebar = () => {
           leftIcon={e.icon}
           color={AppColor.text}
           _hover={{ filter: "brightness(120%)" }}
+          onClick={e.onClick}
         >
           {e.text}
         </Button>
       ))}
+
+      <Text>{isModalOpenedWithType}</Text>
     </Stack>
   );
 };
