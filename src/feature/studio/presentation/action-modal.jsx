@@ -1,8 +1,8 @@
 import React from "react";
-import AppModal from "./core/components/modal";
+import AppModal from "../../../core/components/modal";
 import { Stack, Text, Button } from "@chakra-ui/react";
 import useActionStore from "./action-zustand";
-import { AppColor } from "./theme";
+import { AppColor } from "../../../theme";
 
 const ActionModal = () => {
   const { isModalOpenedWithType, setModalType } = useActionStore();

@@ -1,7 +1,6 @@
 import React from "react";
 import { Stack, Text, Button } from "@chakra-ui/react";
-import { AppColor } from "./theme";
-
+import { AppColor } from "../../../theme";
 const PresentationScriptBox = () => {
   return (
     <Stack

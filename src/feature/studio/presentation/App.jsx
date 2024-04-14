@@ -1,7 +1,7 @@
 import { Flex, Box } from "@chakra-ui/react";
 import { useLayoutEffect, useRef } from "react";
-import pixiApp from "./pixi";
-import { AppColor } from "./theme";
+import pixiApp from "../../../pixi";
+import { AppColor } from "../../../theme";
 import Sidebar from "./sidebar";
 import PresentationScriptBox from "./presentation-script-box";
 

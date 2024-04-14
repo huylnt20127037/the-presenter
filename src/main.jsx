@@ -2,8 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { ChakraProvider } from "@chakra-ui/react";
 import { baseTheme } from "./theme.js";
-import App from "./App.jsx";
-import pixiApp from "./pixi.js";
+import App from "./feature/studio/presentation/App.jsx";
+import pixiApp from "./pixi/index.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ChakraProvider
