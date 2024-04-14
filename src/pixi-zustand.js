@@ -2,7 +2,7 @@ import { create } from "zustand";
 import pixiApp from "./core/pixi";
 import Character from "./core/pixi/character";
 
-const usePixiZustand = create((set, get) => ({
+const usePixiStore = create((set, get) => ({
      thePresenter: undefined,
 
      bringThePresenterOntoStage: () => {
@@ -10,7 +10,15 @@ const usePixiZustand = create((set, get) => ({
           pixiApp.stage.addChild(character.container);
           set(() => ({ thePresenter: character }))
      },
-
+     startPresentation: (actionList) => {
+          let interval = get().thePresenter.talking()
+          for (let action of actionList) {
+               // thePresenter.talking()
+          }
+     },
+     stopPresentation: () => {
+          get().thePresenter.idling()
+     },
 }));
 
-export default usePixiZustand;
+export default usePixiStore;

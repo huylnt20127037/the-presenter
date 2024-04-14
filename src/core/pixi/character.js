@@ -71,9 +71,28 @@ class Character {
           this.container = characterContainer
      }
 
-     smile() {
+     openMouth() {
           const sprite = this.humanTextures.mouth.sprite
           sprite.texture = mouthOpenTexture
+     }
+
+     closeMouth() {
+          const sprite = this.humanTextures.mouth.sprite
+          sprite.texture = mouthTexture
+     }
+
+     interval
+
+     talking() {
+          this.interval = setInterval(() => {
+               this.openMouth()
+               setTimeout(() => this.closeMouth(), 150)
+          }, 500)
+     }
+
+     idling() {
+          clearInterval(this.interval)
+          this.interval = undefined
      }
 }
 

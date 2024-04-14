@@ -4,11 +4,11 @@ import pixiApp from "../../../core/pixi";
 import { AppColor } from "../../../theme";
 import Sidebar from "./sidebar";
 import PresentationScriptBox from "./presentation-script-box";
-import usePixiZustand from "../../../pixi-zustand";
+import usePixiStore from "../../../pixi-zustand";
 
 const App = () => {
   const rootRef = useRef();
-  const { bringThePresenterOntoStage } = usePixiZustand();
+  const { bringThePresenterOntoStage } = usePixiStore();
 
   useLayoutEffect(() => {
     rootRef.current.appendChild(pixiApp.canvas);
