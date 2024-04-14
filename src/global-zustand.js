@@ -9,6 +9,7 @@ const useGlobalStore = create((set, get) => ({
      bringThePresenterOntoStage: () => {
           let character = new Character(pixiApp.renderer)
           pixiApp.stage.addChild(character.container);
+          character.smile()
           set(() => ({ thePresenter: character }))
      },
 
