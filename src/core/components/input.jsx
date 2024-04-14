@@ -9,6 +9,7 @@ import {
   FormErrorMessage,
 } from "@chakra-ui/react";
 import InputState from "../enums/input-state";
+import { AppColor } from "../../theme";
 
 const FormInput = forwardRef(
   (
@@ -38,13 +39,13 @@ const FormInput = forwardRef(
         isDisabled={state === InputState.DISABLED}
       >
         {label && (
-          <FormLabel color="neutralGray" fontWeight="normal">
+          <FormLabel color={AppColor.secondary} fontWeight="normal">
             {label}
           </FormLabel>
         )}
         <InputGroup>
           <InputLeftElement pointerEvents="none">
-            <Icon as={icon} color="neutralGray" />
+            <Icon as={icon} />
           </InputLeftElement>
           <Input
             ref={ref}
@@ -63,7 +64,9 @@ const FormInput = forwardRef(
             pattern={pattern}
           />
         </InputGroup>
-        <FormErrorMessage color="accentRed">{errorMessage}</FormErrorMessage>
+        <FormErrorMessage color={AppColor.primary}>
+          {errorMessage}
+        </FormErrorMessage>
       </FormControl>
     );
   }

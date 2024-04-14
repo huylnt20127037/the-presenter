@@ -1,18 +1,13 @@
 import React from "react";
 import { Stack, Text, Button } from "@chakra-ui/react";
-import { MdOutlineDescription } from "react-icons/md";
-import { RiSpeakLine } from "react-icons/ri";
-import { IoPauseCircleOutline } from "react-icons/io5";
-import { IoIosMove } from "react-icons/io";
-import { BsMusicNoteList } from "react-icons/bs";
 import { AppColor } from "../../../theme";
-import useActionStore from "./action-zustand";
 import ActionModal from "./action-modal";
 import SecondaryButton from "../../../core/components/secondary-button";
-import SidebarAction from "../data/sidebar-action";
+import SidebarAction from "../data/sidebar-action.jsx";
+import useStudioStore from "./studio-zustand";
 
 const Sidebar = () => {
-  const { isModalOpenedWithType, setModalType } = useActionStore();
+  const { isModalOpenedWithType, setModalType } = useStudioStore();
 
   return (
     <Stack
@@ -28,13 +23,13 @@ const Sidebar = () => {
       </Text>
 
       <SecondaryButton
-        icon={<RiSpeakLine />}
+        icon={SidebarAction.getIconComponent(SidebarAction.addDialouge)}
         message={SidebarAction.addDialouge}
         onClick={() => setModalType(SidebarAction.addDialouge)}
       />
 
       <SecondaryButton
-        icon={<IoPauseCircleOutline />}
+        icon={SidebarAction.getIconComponent(SidebarAction.insertBreak)}
         message={SidebarAction.insertBreak}
         onClick={() => setModalType(SidebarAction.insertBreak)}
       />
@@ -44,13 +39,15 @@ const Sidebar = () => {
       </Text>
 
       <SecondaryButton
-        icon={<MdOutlineDescription />}
+        icon={SidebarAction.getIconComponent(SidebarAction.importScript)}
         message={SidebarAction.importScript}
         onClick={() => setModalType(SidebarAction.importScript)}
       />
 
       <SecondaryButton
-        icon={<BsMusicNoteList />}
+        icon={SidebarAction.getIconComponent(
+          SidebarAction.selectSpeakingAccent
+        )}
         message={SidebarAction.selectSpeakingAccent}
         onClick={() => setModalType(SidebarAction.selectSpeakingAccent)}
       />

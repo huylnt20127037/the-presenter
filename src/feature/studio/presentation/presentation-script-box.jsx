@@ -1,7 +1,13 @@
 import React from "react";
 import { Stack, Text, Button } from "@chakra-ui/react";
 import { AppColor } from "../../../theme";
+import PrimaryButton from "../../../core/components/primary-button";
+import { CiPlay1 } from "react-icons/ci";
+import useStudioStore from "./studio-zustand";
+import PresentationScriptItem from "./presentation-script-item";
+
 const PresentationScriptBox = () => {
+  const { actionList } = useStudioStore();
   return (
     <Stack
       bgColor={AppColor.primary}
@@ -16,13 +22,12 @@ const PresentationScriptBox = () => {
       <Text color={AppColor.text} fontWeight="bold" fontSize="xl" mb="24px">
         Kịch bản trình bày
       </Text>
-      <Button
-        bgColor={AppColor.accent}
-        color={AppColor.text}
-        _hover={{ filter: "brightness(120%)" }}
-      >
-        Bắt đầu trình bày
-      </Button>
+      <Stack height="100%">
+        {actionList.map((e) => (
+          <PresentationScriptItem presentationAction={e} />
+        ))}
+      </Stack>
+      <PrimaryButton icon={<CiPlay1 />} message="Bắt đầu trình bày" />
     </Stack>
   );
 };

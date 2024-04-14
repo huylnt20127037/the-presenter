@@ -1,18 +1,16 @@
 import { create } from "zustand";
 import pixiApp from "./core/pixi";
-import createCharacter from "./core/pixi/character";
 import Character from "./core/pixi/character";
 
-const useGlobalStore = create((set, get) => ({
+const usePixiZustand = create((set, get) => ({
      thePresenter: undefined,
 
      bringThePresenterOntoStage: () => {
           let character = new Character(pixiApp.renderer)
           pixiApp.stage.addChild(character.container);
-          character.smile()
           set(() => ({ thePresenter: character }))
      },
 
 }));
 
-export default useGlobalStore;
+export default usePixiZustand;

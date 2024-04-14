@@ -1,5 +1,6 @@
 import { Flex, Box, Icon } from "@chakra-ui/react";
 import ContainerState from "../enums/container-state";
+import { AppColor } from "../../theme";
 
 const AppContainer = ({
   icon,
@@ -39,7 +40,7 @@ const AppContainer = ({
       rounded="xl"
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
-      backgroundColor={backgroundColor || "primary"}
+      backgroundColor={backgroundColor || AppColor.text}
       backgroundImage={`url(${backgroundImage})`}
       _hover={hoverStyle}
       onClick={onClick}

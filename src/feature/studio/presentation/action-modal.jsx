@@ -1,29 +1,47 @@
 import React from "react";
 import AppModal from "../../../core/components/modal";
 import { Stack, Text, Button } from "@chakra-ui/react";
-import useActionStore from "./action-zustand";
+import useStudioStore from "./studio-zustand";
 import { AppColor } from "../../../theme";
+import PrimaryButton from "../../../core/components/primary-button";
+import FormInput from "../../../core/components/input";
+import SidebarAction from "../data/sidebar-action.jsx";
+import { MdOutlineDescription } from "react-icons/md";
 
 const ActionModal = () => {
-  const { isModalOpenedWithType, setModalType } = useActionStore();
+  const { isModalOpenedWithType, setModalType, submit, updateAction } =
+    useStudioStore();
+
+  const buildBody = () => {
+    switch (isModalOpenedWithType) {
+      case SidebarAction.addDialouge:
+        return (
+          <FormInput
+            type="text"
+            label="Nội dung thoại"
+            width="100%"
+            icon={SidebarAction.getIcon(isModalOpenedWithType)}
+            onChange={(event) => updateAction(event.target.value)}
+          />
+        );
+      case SidebarAction.insertBreak:
+        return (
+          <FormInput
+            type="number"
+            label="Số giây"
+            width="100%"
+            icon={SidebarAction.getIcon(isModalOpenedWithType)}
+            onChange={(event) => updateAction(event.target.value)}
+          />
+        );
+    }
+  };
   return (
     <AppModal
       headerText={isModalOpenedWithType}
       onClose={() => setModalType()}
-      body={
-        <Stack>
-          <Text color="text">{"BODY"}</Text>
-        </Stack>
-      }
-      footer={
-        <Button
-          bgColor={AppColor.accent}
-          color={AppColor.text}
-          _hover={{ filter: "brightness(120%)" }}
-        >
-          Hoàn tất
-        </Button>
-      }
+      body={buildBody()}
+      footer={<PrimaryButton message="Hoàn tất" onClick={submit} />}
     />
   );
 };
