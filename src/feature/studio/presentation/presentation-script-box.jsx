@@ -8,11 +8,35 @@ import useStudioStore from "./studio-zustand";
 import PresentationScriptItem from "./presentation-script-item";
 import usePixiStore from "../../../pixi-zustand";
 import SecondaryButton from "../../../core/components/secondary-button";
+import Announcement from "../../../core/components/announcement";
+import AnnouncementIllustrationType from "../../../core/enums/announcement-illustration-type";
 
 const PresentationScriptBox = () => {
   const { actionList } = useStudioStore();
   const { startPresentation, stopPresentation } = usePixiStore();
 
+  const buildContent = () => {
+    if (actionList.length == 0) {
+      return (
+        <Announcement
+          height="35vh"
+          type={AnnouncementIllustrationType.EMPTY}
+          message="Chưa có dữ liệu"
+        />
+      );
+    }
+    return (
+      <Stack height="100%">
+        {actionList.map((e, i) => (
+          <PresentationScriptItem
+            key={e.id}
+            presentationAction={e}
+            listIndex={i}
+          />
+        ))}
+      </Stack>
+    );
+  };
   return (
     <Stack
       bgColor={AppColor.primary}
@@ -28,15 +52,7 @@ const PresentationScriptBox = () => {
         Kịch bản trình bày
       </Text>
 
-      <Stack height="100%">
-        {actionList.map((e, i) => (
-          <PresentationScriptItem
-            key={e.id}
-            presentationAction={e}
-            listIndex={i}
-          />
-        ))}
-      </Stack>
+      {buildContent()}
 
       <HStack>
         <SecondaryButton
