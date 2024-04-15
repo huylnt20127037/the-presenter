@@ -171,6 +171,8 @@ class Character {
      idling() {
           clearInterval(this.interval)
           this.interval = undefined
+          this.showNormalEyebrow()
+          this.showStraightMouth()
      }
 }
 
