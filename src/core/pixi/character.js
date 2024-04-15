@@ -5,6 +5,7 @@ import Head from '../../assets/character/PNG/Skin/Tint 1/tint1_head.png';
 import Nose from '../../assets/character/PNG/Face/Nose/Tint 2/tint2Nose2.png';
 import Mouth from '../../assets/character/PNG/Face/Mouth/mouth_glad.png';
 import MouthOpen from '../../assets/character/PNG/Face/Mouth/mouth_teethUpper.png';
+import NumberExtension from '../extensions/number';
 
 let headTexture = await PIXI.Assets.load(Head);
 let hairTexture = await PIXI.Assets.load(Hair);
@@ -86,8 +87,8 @@ class Character {
      talking() {
           this.interval = setInterval(() => {
                this.openMouth()
-               setTimeout(() => this.closeMouth(), 150)
-          }, 500)
+               setTimeout(() => this.closeMouth(), NumberExtension.getRandomInt(150, 750),)
+          }, NumberExtension.getRandomInt(250, 1000))
      }
 
      idling() {
