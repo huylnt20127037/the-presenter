@@ -48,6 +48,7 @@ const usePixiStore = create((set, get) => ({
      stopPresentation: () => {
           get().thePresenter.idling()
           AudioExtension.stopReadingText()
+          set(() => ({ currentPresentationActionIndex: undefined }))
      },
 }));
 
