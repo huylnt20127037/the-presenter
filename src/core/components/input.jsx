@@ -39,7 +39,7 @@ const FormInput = forwardRef(
         isDisabled={state === InputState.DISABLED}
       >
         {label && (
-          <FormLabel color={AppColor.secondary} fontWeight="normal">
+          <FormLabel color={AppColor.text} fontWeight="normal">
             {label}
           </FormLabel>
         )}
@@ -56,7 +56,7 @@ const FormInput = forwardRef(
             onChange={onChange}
             onInput={onInput}
             borderColor="neutralGray"
-            focusBorderColor="accent"
+            focusBorderColor={AppColor.text}
             _hover={{}}
             isReadOnly={isReadOnly}
             width={width ?? "auto"}

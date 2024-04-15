@@ -6,6 +6,9 @@ const useStudioStore = create((set, get) => ({
      isModalOpenedWithType: undefined,
      action: undefined,
      actionList: [],
+     fromDragActionIndex: undefined,
+     toDragActionIndex: undefined,
+
      setModalType: (type, actionIndex) => {
           if (!type) {
                set(() => ({
@@ -65,7 +68,23 @@ const useStudioStore = create((set, get) => ({
           set((state) => ({
                actionList: [...state.actionList],
           }))
-     }
+     },
+     dragAndDrop: () => {
+          let temp = get().actionList[get().fromDragActionIndex]
+          get().actionList[get().fromDragActionIndex] = get().actionList[get().toDragActionIndex]
+          get().actionList[get().toDragActionIndex] = temp
+          set((state) => ({
+               actionList: [...state.actionList],
+               fromDragActionIndex: undefined,
+               toDragActionIndex: undefined
+          }))
+     },
+     dragWithIndex: (value) => set(() => ({
+          fromDragActionIndex: value,
+     })),
+     dragOverWithIndex: (value) => set(() => ({
+          toDragActionIndex: value,
+     }))
 }));
 
 export default useStudioStore;

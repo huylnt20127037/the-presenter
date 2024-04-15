@@ -9,12 +9,44 @@ import { IoPencil } from "react-icons/io5";
 import { RxFace } from "react-icons/rx";
 import SidebarAction from "../data/sidebar-action";
 import useStudioStore from "./studio-zustand";
+import { RiDraggable } from "react-icons/ri";
 
 const PresentationScriptItem = ({ presentationAction, listIndex }) => {
   const { currentPresentationActionIndex } = usePixiStore();
-  const { setModalType, deleteAction } = useStudioStore();
+  const {
+    setModalType,
+    deleteAction,
+    dragAndDrop,
+    dragOverWithIndex,
+    dragWithIndex,
+    toDragActionIndex,
+  } = useStudioStore();
   const [isActionBarShown, setActionBarShown] = useState(false);
 
+  const buildEditButton = () => {
+    return (
+      <IconButton
+        icon={<IoPencil />}
+        rounded="full"
+        bgColor={AppColor.accent}
+        color={AppColor.text}
+        _hover={{ filter: "brightness(120%)" }}
+      />
+    );
+  };
+
+  const buildDeleteButton = () => {
+    return (
+      <IconButton
+        icon={<IoMdTrash />}
+        rounded="full"
+        bgColor={AppColor.accent}
+        color={AppColor.text}
+        _hover={{ filter: "brightness(120%)" }}
+        onClick={() => deleteAction(listIndex)}
+      />
+    );
+  };
   const buildActionBar = () => {
     switch (presentationAction.sidebarAction) {
       case SidebarAction.addDialouge:
@@ -34,66 +66,39 @@ const PresentationScriptItem = ({ presentationAction, listIndex }) => {
                 setActionBarShown(false);
               }}
             />
-            <IconButton
-              icon={<IoPencil />}
-              rounded="full"
-              bgColor={AppColor.accent}
-              color={AppColor.text}
-              _hover={{ filter: "brightness(120%)" }}
-            />
-            <IconButton
-              icon={<IoMdTrash />}
-              rounded="full"
-              bgColor={AppColor.accent}
-              color={AppColor.text}
-              _hover={{ filter: "brightness(120%)" }}
-              onClick={() => deleteAction(listIndex)}
-            />
+            {buildEditButton()}
+            {buildDeleteButton()}
           </HStack>
         );
       case SidebarAction.insertBreak:
         return (
           <HStack>
-            <IconButton
-              icon={<IoPencil />}
-              rounded="full"
-              bgColor={AppColor.accent}
-              color={AppColor.text}
-              _hover={{ filter: "brightness(120%)" }}
-            />
-            <IconButton
-              icon={<IoMdTrash />}
-              rounded="full"
-              bgColor={AppColor.accent}
-              color={AppColor.text}
-              _hover={{ filter: "brightness(120%)" }}
-              onClick={() => deleteAction(listIndex)}
-            />
+            {buildEditButton()}
+            {buildDeleteButton()}
           </HStack>
         );
       default:
-        return (
-          <HStack>
-            <IconButton
-              icon={<IoMdTrash />}
-              rounded="full"
-              bgColor={AppColor.accent}
-              color={AppColor.text}
-              _hover={{ filter: "brightness(120%)" }}
-            />
-          </HStack>
-        );
+        return <HStack>{buildDeleteButton()}</HStack>;
     }
   };
   return (
     <HStack
       onMouseEnter={() => setActionBarShown(true)}
       onMouseLeave={() => setActionBarShown(false)}
+      onDragStart={() => dragWithIndex(listIndex)}
+      onDragOver={(event) => {
+        event.preventDefault();
+        event.dataTransfer.dropEffect = "move";
+        dragOverWithIndex(listIndex);
+      }}
+      onDrop={dragAndDrop}
+      zIndex={1}
     >
       <AppContainer
         width="100%"
         state={
-          listIndex == currentPresentationActionIndex
+          listIndex == currentPresentationActionIndex ||
+          listIndex == toDragActionIndex
             ? ContainerState.ACTIVE
             : ContainerState.DEFAULT
         }

@@ -3,8 +3,8 @@ import { extendTheme } from "@chakra-ui/react"
 const AppColor = {
      text: '#e9ebef',
      primary: '#20242f',
-     secondary: '#363a45',
-     accent: '#0d111d',
+     secondary: '#0d111d',
+     accent: '#363a45',
 }
 
 const styles = {
