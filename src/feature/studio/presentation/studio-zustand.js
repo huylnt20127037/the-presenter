@@ -70,9 +70,8 @@ const useStudioStore = create((set, get) => ({
           }))
      },
      dragAndDrop: () => {
-          let temp = get().actionList[get().fromDragActionIndex]
-          get().actionList[get().fromDragActionIndex] = get().actionList[get().toDragActionIndex]
-          get().actionList[get().toDragActionIndex] = temp
+          const element = get().actionList.splice(get().fromDragActionIndex, 1)[0];
+          get().actionList.splice(get().toDragActionIndex, 0, element)
           set((state) => ({
                actionList: [...state.actionList],
                fromDragActionIndex: undefined,
