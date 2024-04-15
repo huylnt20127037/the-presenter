@@ -13,16 +13,17 @@ const usePixiStore = create((set, get) => ({
           set(() => ({ thePresenter: character }))
      },
 
-     startPresentation: (actionList) => {
+     startPresentation: async (actionList) => {
           for (let action of actionList) {
-               switch (action.sidebarAction) {
-                    case SidebarAction.addDialouge:
-                         AudioExtension.readText(
-                              action.content,
-                              () => get().thePresenter.talking(),
-                              () => get().thePresenter.idling(),
-                         )
-                         break
+               if (action.sidebarAction == SidebarAction.addDialouge) {
+                    await AudioExtension.readText(
+                         action.content,
+                         () => get().thePresenter.talking(),
+                    )
+                    get().thePresenter.idling()
+               }
+               else if (action.sidebarAction == SidebarAction.insertBreak) {
+                    await new Promise(resolve => setTimeout(resolve, action.content * 1000))
                }
           }
      },

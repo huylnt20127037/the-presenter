@@ -1,15 +1,22 @@
 class AudioExtension {
-     static readText = (text, onStart, onEnd) => {
+     static readText = async (text, onStart) => {
           let utterance = new SpeechSynthesisUtterance();
           utterance.text = text;
           utterance.lang = "vi-VN";
-          // utterance.voice = window.speechSynthesis.getVoices()[21]; // Choose a specific voice
           utterance.onstart = onStart
-          utterance.onend = onEnd
           window.speechSynthesis.speak(utterance);
+          return new Promise((resolve) => {
+               utterance.onend = resolve;
+          });
      }
      static stopReadingText = () => {
           window.speechSynthesis.cancel()
+     }
+     static pauseReadingText = () => {
+          window.speechSynthesis.pause()
+     }
+     static resumeReadingText = () => {
+          window.speechSynthesis.resume()
      }
 }
 
