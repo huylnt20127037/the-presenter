@@ -35,7 +35,8 @@ const useStudioStore = create((set, get) => ({
           }
      },
      submit: () => {
-          console.log(get().action);
+          if (!get().action.content) return
+
           set((state) => ({
                actionList: [...state.actionList, state.action],
           }))

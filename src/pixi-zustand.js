@@ -17,9 +17,9 @@ const usePixiStore = create((set, get) => ({
           for (let action of actionList) {
                switch (action.sidebarAction) {
                     case SidebarAction.addDialouge:
-                         get().thePresenter.talking()
                          AudioExtension.readText(
                               action.content,
+                              () => get().thePresenter.talking(),
                               () => get().thePresenter.idling(),
                          )
                          break
