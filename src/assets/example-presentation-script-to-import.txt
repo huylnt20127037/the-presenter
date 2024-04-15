@@ -1,0 +1,7 @@
+Nói: Xin chào!
+Biểu cảm: Hân hoan
+Dừng: 3 giây
+Nói: Mình thật không ngờ...
+Biểu cảm: Ngạc nhiên
+Dừng: 1 giây
+Nói: Hôm nay lại vui đến vậy!

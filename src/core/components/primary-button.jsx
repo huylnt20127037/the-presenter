@@ -16,6 +16,7 @@ const PrimaryButton = ({
 }) => {
   return (
     <Button
+      justifyContent="start"
       leftIcon={icon}
       bgColor={AppColor.accent}
       color={AppColor.text}

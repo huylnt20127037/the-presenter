@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import InputState from "../enums/input-state";
 import { AppColor } from "../../theme";
-import SecondaryButton from "./secondary-button";
+import PrimaryButton from "./primary-button";
 import { HiUpload } from "react-icons/hi";
 
 const FormInput = forwardRef(
@@ -39,12 +39,12 @@ const FormInput = forwardRef(
     if (type == "file")
       return (
         <Stack>
-          <SecondaryButton
+          <PrimaryButton
             icon={<HiUpload />}
             message="Tải file với định dạng .txt từ máy tính"
-            onClick={() => document.getElementById("image-uploader").click()}
+            onClick={() => document.getElementById("file-uploader").click()}
           />
-          <Input id="image-uploader" type="file" hidden onChange={onChange} />
+          <Input id="file-uploader" type="file" hidden onChange={onChange} />
         </Stack>
       );
 

@@ -52,6 +52,12 @@ const Sidebar = () => {
         onClick={() => setModalType(SidebarAction.selectSpeakingAccent)}
       />
 
+      <SecondaryButton
+        icon={SidebarAction.getIconComponent(SidebarAction.selectCharacter)}
+        message={SidebarAction.selectCharacter}
+        onClick={() => setModalType(SidebarAction.selectCharacter)}
+      />
+
       {isModalOpenedWithType && <ActionModal />}
     </Stack>
   );

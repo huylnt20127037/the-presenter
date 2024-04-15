@@ -1,6 +1,6 @@
 import React from "react";
 import AppModal from "../../../core/components/modal";
-import { HStack, Text, Button } from "@chakra-ui/react";
+import { Stack, HStack, Text, Button } from "@chakra-ui/react";
 import useStudioStore from "./studio-zustand";
 import { AppColor } from "../../../theme";
 import PrimaryButton from "../../../core/components/primary-button";
@@ -11,6 +11,7 @@ import {
   getIconComponent,
 } from "../data/facial-expression.jsx";
 import SecondaryButton from "../../../core/components/secondary-button.jsx";
+import { HiDownload } from "react-icons/hi";
 
 const ActionModal = () => {
   const {
@@ -59,11 +60,24 @@ const ActionModal = () => {
         );
       case SidebarAction.importScript:
         return (
-          <FormInput
-            type="file"
-            width="100%"
-            onChange={(event) => importScript(event.target.files[0])}
-          />
+          <Stack>
+            <SecondaryButton
+              icon={<HiDownload />}
+              message="Tải file mẫu về máy"
+              onClick={() => document.getElementById("file-downloader").click()}
+            />
+            <a
+              id="file-downloader"
+              hidden
+              href="src\assets\example-presentation-script-to-import.txt"
+              download="example-presentation-script-to-import.txt"
+            />
+            <FormInput
+              type="file"
+              width="100%"
+              onChange={(event) => importScript(event.target.files[0])}
+            />
+          </Stack>
         );
     }
   };
