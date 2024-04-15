@@ -8,9 +8,11 @@ import { AppColor } from "../../../theme";
 import { IoPencil } from "react-icons/io5";
 import { RxFace } from "react-icons/rx";
 import SidebarAction from "../data/sidebar-action";
+import useStudioStore from "./studio-zustand";
 
 const PresentationScriptItem = ({ presentationAction, listIndex }) => {
   const { currentPresentationActionIndex } = usePixiStore();
+  const { setModalType } = useStudioStore();
   const [isActionBarShown, setActionBarShown] = useState(false);
 
   const buildActionBar = () => {
@@ -24,6 +26,12 @@ const PresentationScriptItem = ({ presentationAction, listIndex }) => {
               bgColor={AppColor.accent}
               color={AppColor.text}
               _hover={{ filter: "brightness(120%)" }}
+              onClick={() =>
+                setModalType(
+                  SidebarAction.addFacialExpressionDuringSpeaking,
+                  listIndex
+                )
+              }
             />
             <IconButton
               icon={<IoPencil />}
@@ -51,6 +59,18 @@ const PresentationScriptItem = ({ presentationAction, listIndex }) => {
               color={AppColor.text}
               _hover={{ filter: "brightness(120%)" }}
             />
+            <IconButton
+              icon={<IoMdTrash />}
+              rounded="full"
+              bgColor={AppColor.accent}
+              color={AppColor.text}
+              _hover={{ filter: "brightness(120%)" }}
+            />
+          </HStack>
+        );
+      default:
+        return (
+          <HStack>
             <IconButton
               icon={<IoMdTrash />}
               rounded="full"

@@ -1,15 +1,19 @@
 import React from "react";
 import AppModal from "../../../core/components/modal";
-import { Stack, Text, Button } from "@chakra-ui/react";
+import { HStack, Text, Button } from "@chakra-ui/react";
 import useStudioStore from "./studio-zustand";
 import { AppColor } from "../../../theme";
 import PrimaryButton from "../../../core/components/primary-button";
 import FormInput from "../../../core/components/input";
 import SidebarAction from "../data/sidebar-action.jsx";
-import { MdOutlineDescription } from "react-icons/md";
+import {
+  FacialExpression,
+  getIconComponent,
+} from "../data/facial-expression.jsx";
+import SecondaryButton from "../../../core/components/secondary-button.jsx";
 
 const ActionModal = () => {
-  const { isModalOpenedWithType, setModalType, submit, updateAction } =
+  const { isModalOpenedWithType, setModalType, createAction, updateAction } =
     useStudioStore();
 
   const buildBody = () => {
@@ -34,6 +38,19 @@ const ActionModal = () => {
             onChange={(event) => updateAction(event.target.value)}
           />
         );
+      case SidebarAction.addFacialExpressionDuringSpeaking:
+        return (
+          <HStack>
+            {Object.values(FacialExpression).map((e, i) => (
+              <SecondaryButton
+                key={i}
+                icon={getIconComponent(e)}
+                message={e}
+                onClick={() => updateAction(e)}
+              />
+            ))}
+          </HStack>
+        );
     }
   };
   return (
@@ -41,7 +58,7 @@ const ActionModal = () => {
       headerText={isModalOpenedWithType}
       onClose={() => setModalType()}
       body={buildBody()}
-      footer={<PrimaryButton message="Hoàn tất" onClick={submit} />}
+      footer={<PrimaryButton message="Hoàn tất" onClick={createAction} />}
     />
   );
 };

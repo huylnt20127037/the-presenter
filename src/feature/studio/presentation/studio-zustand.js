@@ -6,7 +6,7 @@ const useStudioStore = create((set, get) => ({
      isModalOpenedWithType: undefined,
      action: undefined,
      actionList: [],
-     setModalType: (type) => {
+     setModalType: (type, actionIndex) => {
           if (!type) {
                set(() => ({
                     isModalOpenedWithType: undefined,
@@ -14,27 +14,45 @@ const useStudioStore = create((set, get) => ({
                }))
           }
           else {
-               set(() => ({
-                    isModalOpenedWithType: type,
-                    action: new PresentationAction({
-                         sidebarAction: type,
-                    }),
-               }))
+               if (actionIndex == undefined) {
+                    set(() => ({
+                         isModalOpenedWithType: type,
+                         action: new PresentationAction({
+                              sidebarAction: type,
+                         }),
+                    }))
+               }
+               else {
+                    set((state) => ({
+                         isModalOpenedWithType: type,
+                         action: Object.assign(state.actionList[actionIndex], {
+                              sidebarAction: [state.actionList[actionIndex].sidebarAction, type]
+                         }),
+                    }))
+               }
+
           }
      },
      updateAction: (value) => {
+          console.log(get().action);
           switch (get().action.sidebarAction) {
                case SidebarAction.addDialouge:
                     get().action.description = `Nói "${value}"`
                     get().action.content = value
-                    break;
+                    return;
                case SidebarAction.insertBreak:
                     get().action.description = `Dừng ${value} giây`
                     get().action.content = value
-                    break;
+                    return;
+          }
+          if (get().action.sidebarAction.includes(SidebarAction.addFacialExpressionDuringSpeaking)) {
+               get().action.description = (get().action.description).concat(` trong sự ${value}`)
+               get().action.content = [get().action.content, value]
+               get().setModalType()
+               return
           }
      },
-     submit: () => {
+     createAction: () => {
           if (!get().action.content) return
 
           set((state) => ({

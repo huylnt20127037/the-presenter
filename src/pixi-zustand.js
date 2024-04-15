@@ -31,6 +31,7 @@ const usePixiStore = create((set, get) => ({
                     await new Promise(resolve => setTimeout(resolve, action.content * 1000))
                }
           }
+          set(() => ({ currentPresentationActionIndex: undefined }))
      },
 
      stopPresentation: () => {
