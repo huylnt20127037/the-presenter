@@ -13,8 +13,13 @@ import {
 import SecondaryButton from "../../../core/components/secondary-button.jsx";
 
 const ActionModal = () => {
-  const { isModalOpenedWithType, setModalType, createAction, updateAction } =
-    useStudioStore();
+  const {
+    isModalOpenedWithType,
+    action,
+    setModalType,
+    createAction,
+    updateAction,
+  } = useStudioStore();
 
   const buildBody = () => {
     switch (isModalOpenedWithType) {
@@ -58,7 +63,11 @@ const ActionModal = () => {
       headerText={isModalOpenedWithType}
       onClose={() => setModalType()}
       body={buildBody()}
-      footer={<PrimaryButton message="Hoàn tất" onClick={createAction} />}
+      footer={
+        Array.isArray(action.sidebarAction) ? undefined : (
+          <PrimaryButton message="Hoàn tất" onClick={createAction} />
+        )
+      }
     />
   );
 };

@@ -26,12 +26,13 @@ const PresentationScriptItem = ({ presentationAction, listIndex }) => {
               bgColor={AppColor.accent}
               color={AppColor.text}
               _hover={{ filter: "brightness(120%)" }}
-              onClick={() =>
+              onClick={() => {
                 setModalType(
                   SidebarAction.addFacialExpressionDuringSpeaking,
                   listIndex
-                )
-              }
+                );
+                setActionBarShown(false);
+              }}
             />
             <IconButton
               icon={<IoPencil />}

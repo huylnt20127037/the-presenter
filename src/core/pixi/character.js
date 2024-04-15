@@ -4,15 +4,22 @@ import Eye from '../../assets/character/PNG/Face/Eyes/eyeBrown_large.png';
 import Head from '../../assets/character/PNG/Skin/Tint 1/tint1_head.png';
 import Nose from '../../assets/character/PNG/Face/Nose/Tint 2/tint2Nose2.png';
 import Mouth from '../../assets/character/PNG/Face/Mouth/mouth_glad.png';
+import MouthHappy from '../../assets/character/PNG/Face/Mouth/mouth_happy.png';
+import MouthWow from '../../assets/character/PNG/Face/Mouth/mouth_oh.png';
+import MouthStraight from '../../assets/character/PNG/Face/Mouth/mouth_straight.png';
 import MouthOpen from '../../assets/character/PNG/Face/Mouth/mouth_teethUpper.png';
 import NumberExtension from '../extensions/number';
+import { FacialExpression } from '../../feature/studio/data/facial-expression';
 
 let headTexture = await PIXI.Assets.load(Head);
 let hairTexture = await PIXI.Assets.load(Hair);
 let eyeTexture = await PIXI.Assets.load(Eye);
 let noseTexture = await PIXI.Assets.load(Nose);
 let mouthTexture = await PIXI.Assets.load(Mouth);
+let mouthHappyTexture = await PIXI.Assets.load(MouthHappy);
 let mouthOpenTexture = await PIXI.Assets.load(MouthOpen);
+let mouthWowTexture = await PIXI.Assets.load(MouthWow);
+let mouthStraightTexture = await PIXI.Assets.load(MouthStraight);
 
 class Character {
      humanTextures = {
@@ -82,11 +89,43 @@ class Character {
           sprite.texture = mouthTexture
      }
 
+     showHappyMouth() {
+          const sprite = this.humanTextures.mouth.sprite
+          sprite.texture = mouthHappyTexture
+     }
+
+     showWowMouth() {
+          const sprite = this.humanTextures.mouth.sprite
+          sprite.texture = mouthWowTexture
+     }
+
+     showStraightMouth() {
+          const sprite = this.humanTextures.mouth.sprite
+          sprite.texture = mouthStraightTexture
+     }
+
      interval
 
      talking() {
           this.interval = setInterval(() => {
                this.openMouth()
+               setTimeout(() => this.closeMouth(), NumberExtension.getRandomInt(150, 750),)
+          }, NumberExtension.getRandomInt(250, 1000))
+     }
+
+     showEmotionWhenTalking(p) {
+          this.interval = setInterval(() => {
+               switch (p) {
+                    case FacialExpression.happy:
+                         this.showHappyMouth()
+                         break
+                    case FacialExpression.neutral:
+                         this.showStraightMouth()
+                         break
+                    case FacialExpression.suprised:
+                         this.showWowMouth()
+                         break
+               }
                setTimeout(() => this.closeMouth(), NumberExtension.getRandomInt(150, 750),)
           }, NumberExtension.getRandomInt(250, 1000))
      }

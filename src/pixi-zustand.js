@@ -15,16 +15,27 @@ const usePixiStore = create((set, get) => ({
      },
 
      startPresentation: async (actionList) => {
+          let utterance = new SpeechSynthesisUtterance();
+          utterance.lang = "vi-VN";
+
           for (let i = 0; i < actionList.length; i++) {
                let action = actionList[i]
                if (action.sidebarAction == SidebarAction.addDialouge) {
-                    await AudioExtension.readText(
-                         action.content,
-                         () => {
-                              get().thePresenter.talking()
-                              set(() => ({ currentPresentationActionIndex: i }))
-                         },
-                    )
+                    utterance.text = action.content;
+                    utterance.onstart = () => {
+                         get().thePresenter.talking()
+                         set(() => ({ currentPresentationActionIndex: i }))
+                    }
+                    await AudioExtension.readText(utterance)
+                    get().thePresenter.idling()
+               }
+               else if (action.sidebarAction.includes(SidebarAction.addFacialExpressionDuringSpeaking)) {
+                    utterance.text = action.content[0];
+                    utterance.onstart = () => {
+                         get().thePresenter.showEmotionWhenTalking(action.content[1])
+                         set(() => ({ currentPresentationActionIndex: i }))
+                    }
+                    await AudioExtension.readText(utterance)
                     get().thePresenter.idling()
                }
                else if (action.sidebarAction == SidebarAction.insertBreak) {

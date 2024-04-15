@@ -34,7 +34,6 @@ const useStudioStore = create((set, get) => ({
           }
      },
      updateAction: (value) => {
-          console.log(get().action);
           switch (get().action.sidebarAction) {
                case SidebarAction.addDialouge:
                     get().action.description = `Nói "${value}"`
