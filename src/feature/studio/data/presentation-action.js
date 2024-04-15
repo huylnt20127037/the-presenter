@@ -1,4 +1,5 @@
 class PresentationAction {
+     id
      sidebarAction
      description
      content

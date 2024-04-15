@@ -30,7 +30,11 @@ const PresentationScriptBox = () => {
 
       <Stack height="100%">
         {actionList.map((e, i) => (
-          <PresentationScriptItem presentationAction={e} listIndex={i} />
+          <PresentationScriptItem
+            key={e.id}
+            presentationAction={e}
+            listIndex={i}
+          />
         ))}
       </Stack>
 

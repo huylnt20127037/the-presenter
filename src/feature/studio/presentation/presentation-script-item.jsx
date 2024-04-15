@@ -12,7 +12,7 @@ import useStudioStore from "./studio-zustand";
 
 const PresentationScriptItem = ({ presentationAction, listIndex }) => {
   const { currentPresentationActionIndex } = usePixiStore();
-  const { setModalType } = useStudioStore();
+  const { setModalType, deleteAction } = useStudioStore();
   const [isActionBarShown, setActionBarShown] = useState(false);
 
   const buildActionBar = () => {
@@ -47,6 +47,7 @@ const PresentationScriptItem = ({ presentationAction, listIndex }) => {
               bgColor={AppColor.accent}
               color={AppColor.text}
               _hover={{ filter: "brightness(120%)" }}
+              onClick={() => deleteAction(listIndex)}
             />
           </HStack>
         );
@@ -66,6 +67,7 @@ const PresentationScriptItem = ({ presentationAction, listIndex }) => {
               bgColor={AppColor.accent}
               color={AppColor.text}
               _hover={{ filter: "brightness(120%)" }}
+              onClick={() => deleteAction(listIndex)}
             />
           </HStack>
         );
@@ -90,7 +92,6 @@ const PresentationScriptItem = ({ presentationAction, listIndex }) => {
     >
       <AppContainer
         width="100%"
-        key={listIndex}
         state={
           listIndex == currentPresentationActionIndex
             ? ContainerState.ACTIVE

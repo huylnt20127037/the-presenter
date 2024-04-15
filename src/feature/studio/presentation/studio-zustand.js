@@ -15,9 +15,10 @@ const useStudioStore = create((set, get) => ({
           }
           else {
                if (actionIndex == undefined) {
-                    set(() => ({
+                    set((state) => ({
                          isModalOpenedWithType: type,
                          action: new PresentationAction({
+                              id: state.actionList.length,
                               sidebarAction: type,
                          }),
                     }))
@@ -58,6 +59,12 @@ const useStudioStore = create((set, get) => ({
                actionList: [...state.actionList, state.action],
           }))
           get().setModalType()
+     },
+     deleteAction: (actionIndex) => {
+          get().actionList.splice(actionIndex, 1)
+          set((state) => ({
+               actionList: [...state.actionList],
+          }))
      }
 }));
 
