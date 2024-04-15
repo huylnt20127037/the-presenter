@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import pixiApp from "./core/pixi";
 import Character from "./core/pixi/character";
+import SidebarAction from "./feature/studio/data/sidebar-action";
+import AudioExtension from "./core/extensions/audio";
 
 const usePixiStore = create((set, get) => ({
      thePresenter: undefined,
@@ -10,14 +12,24 @@ const usePixiStore = create((set, get) => ({
           pixiApp.stage.addChild(character.container);
           set(() => ({ thePresenter: character }))
      },
+
      startPresentation: (actionList) => {
-          let interval = get().thePresenter.talking()
           for (let action of actionList) {
-               // thePresenter.talking()
+               switch (action.sidebarAction) {
+                    case SidebarAction.addDialouge:
+                         get().thePresenter.talking()
+                         AudioExtension.readText(
+                              action.content,
+                              () => get().thePresenter.idling(),
+                         )
+                         break
+               }
           }
      },
+
      stopPresentation: () => {
           get().thePresenter.idling()
+          AudioExtension.stopReadingText()
      },
 }));
 

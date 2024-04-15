@@ -26,9 +26,11 @@ const useStudioStore = create((set, get) => ({
           switch (get().action.sidebarAction) {
                case SidebarAction.addDialouge:
                     get().action.description = `Nói "${value}"`
+                    get().action.content = value
                     break;
                case SidebarAction.insertBreak:
                     get().action.description = `Dừng ${value} giây`
+                    get().action.content = value
                     break;
           }
      },
