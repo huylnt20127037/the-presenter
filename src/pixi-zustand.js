@@ -6,6 +6,7 @@ import AudioExtension from "./core/extensions/audio";
 
 const usePixiStore = create((set, get) => ({
      thePresenter: undefined,
+     currentPresentationActionIndex: undefined,
 
      bringThePresenterOntoStage: () => {
           let character = new Character(pixiApp.renderer)
@@ -14,11 +15,15 @@ const usePixiStore = create((set, get) => ({
      },
 
      startPresentation: async (actionList) => {
-          for (let action of actionList) {
+          for (let i = 0; i < actionList.length; i++) {
+               let action = actionList[i]
                if (action.sidebarAction == SidebarAction.addDialouge) {
                     await AudioExtension.readText(
                          action.content,
-                         () => get().thePresenter.talking(),
+                         () => {
+                              get().thePresenter.talking()
+                              set(() => ({ currentPresentationActionIndex: i }))
+                         },
                     )
                     get().thePresenter.idling()
                }

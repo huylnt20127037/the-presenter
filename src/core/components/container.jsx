@@ -23,7 +23,7 @@ const AppContainer = ({
       case ContainerState.DEFAULT:
         return "transparent";
       case ContainerState.ACTIVE:
-        return "accent";
+        return AppColor.text;
     }
   };
 
@@ -40,7 +40,8 @@ const AppContainer = ({
       rounded="xl"
       backgroundPosition="center"
       backgroundRepeat="no-repeat"
-      backgroundColor={backgroundColor || AppColor.text}
+      backgroundColor={backgroundColor || AppColor.secondary}
+      color={AppColor.text}
       backgroundImage={`url(${backgroundImage})`}
       _hover={hoverStyle}
       onClick={onClick}
