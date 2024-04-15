@@ -84,7 +84,42 @@ const useStudioStore = create((set, get) => ({
      })),
      dragOverWithIndex: (value) => set(() => ({
           toDragActionIndex: value,
-     }))
+     })),
+     importScript: async (file) => {
+          let tempActionList = []
+          let fileContent = await file.text()
+          let fileContentArr = fileContent.split('\n')
+          fileContentArr.forEach(line => {
+               let lineArr = line.split(':')
+               switch (lineArr[0]) {
+                    case 'Nói':
+                         tempActionList.push(new PresentationAction({
+                              id: tempActionList.length,
+                              sidebarAction: SidebarAction.addDialouge,
+                              description: line.replace(':', ''),
+                              content: lineArr[1].trim()
+                         }))
+                         break;
+                    case 'Biểu cảm':
+                         tempActionList.at(tempActionList.length - 1).sidebarAction = [tempActionList.at(tempActionList.length - 1).sidebarAction, SidebarAction.addFacialExpressionDuringSpeaking]
+                         tempActionList.at(tempActionList.length - 1).description = `${tempActionList.at(tempActionList.length - 1).description} trong sự ${lineArr[1]}`
+                         tempActionList.at(tempActionList.length - 1).content = [tempActionList.at(tempActionList.length - 1).content, lineArr[1].trim()]
+                         break;
+                    case 'Dừng':
+                         tempActionList.push(new PresentationAction({
+                              id: tempActionList.length,
+                              sidebarAction: SidebarAction.insertBreak,
+                              description: line.replace(':', ''),
+                              content: lineArr[1].split(' ').at(1)
+                         }))
+                         break;
+               }
+          })
+          set(() => ({
+               isModalOpenedWithType: undefined,
+               actionList: tempActionList,
+          }))
+     }
 }));
 
 export default useStudioStore;

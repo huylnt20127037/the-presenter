@@ -19,7 +19,7 @@ const PresentationScriptBox = () => {
     if (actionList.length == 0) {
       return (
         <Announcement
-          height="35vh"
+          height="45vh"
           type={AnnouncementIllustrationType.EMPTY}
           message="Chưa có dữ liệu"
         />

@@ -19,6 +19,7 @@ const ActionModal = () => {
     setModalType,
     createAction,
     updateAction,
+    importScript,
   } = useStudioStore();
 
   const buildBody = () => {
@@ -56,6 +57,14 @@ const ActionModal = () => {
             ))}
           </HStack>
         );
+      case SidebarAction.importScript:
+        return (
+          <FormInput
+            type="file"
+            width="100%"
+            onChange={(event) => importScript(event.target.files[0])}
+          />
+        );
     }
   };
   return (
@@ -64,7 +73,8 @@ const ActionModal = () => {
       onClose={() => setModalType()}
       body={buildBody()}
       footer={
-        Array.isArray(action.sidebarAction) ? undefined : (
+        Array.isArray(action.sidebarAction) ||
+        action.sidebarAction == SidebarAction.importScript ? undefined : (
           <PrimaryButton message="Hoàn tất" onClick={createAction} />
         )
       }
