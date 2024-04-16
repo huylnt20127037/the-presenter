@@ -6,7 +6,6 @@ import Nose from '../../assets/character/PNG/Face/Nose/Tint 2/tint2Nose2.png';
 import Mouth from '../../assets/character/PNG/Face/Mouth/mouth_glad.png';
 import MouthHappy from '../../assets/character/PNG/Face/Mouth/mouth_happy.png';
 import MouthWow from '../../assets/character/PNG/Face/Mouth/mouth_oh.png';
-import MouthStraight from '../../assets/character/PNG/Face/Mouth/mouth_straight.png';
 import MouthOpen from '../../assets/character/PNG/Face/Mouth/mouth_teethUpper.png';
 import EyeBrowNeutral from '../../assets/character/PNG/Face/Eyebrows/blondeBrow2.png';
 import EyeBrowExcited from '../../assets/character/PNG/Face/Eyebrows/blondeBrow3.png';
@@ -21,7 +20,6 @@ let mouthTexture = await PIXI.Assets.load(Mouth);
 let mouthHappyTexture = await PIXI.Assets.load(MouthHappy);
 let mouthOpenTexture = await PIXI.Assets.load(MouthOpen);
 let mouthWowTexture = await PIXI.Assets.load(MouthWow);
-let mouthStraightTexture = await PIXI.Assets.load(MouthStraight);
 let eyebrowNeutralTexture = await PIXI.Assets.load(EyeBrowNeutral);
 let eyebrowExcitedTexture = await PIXI.Assets.load(EyeBrowExcited);
 
@@ -120,7 +118,7 @@ class Character {
 
      showStraightMouth() {
           const sprite = this.humanTextures.mouth.sprite
-          sprite.texture = mouthStraightTexture
+          sprite.texture = mouthTexture
      }
 
      showNormalEyebrow() {
