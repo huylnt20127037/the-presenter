@@ -69,7 +69,7 @@ const ActionModal = () => {
             <a
               id="file-downloader"
               hidden
-              href="src\assets\example-presentation-script-to-import.txt"
+              href="src/assets/example-presentation-script-to-import.txt"
               download="example-presentation-script-to-import.txt"
             />
             <FormInput
