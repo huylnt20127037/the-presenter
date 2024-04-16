@@ -28,7 +28,7 @@ const usePixiStore = create((set, get) => ({
      startPresentation: async (actionList) => {
           let utterance = new SpeechSynthesisUtterance();
           utterance.lang = "vi-VN";
-
+          // utterance.voice = window.speechSynthesis.getVoices()[315];
           for (let i = 0; i < actionList.length; i++) {
                let action = actionList[i]
                if (action.sidebarAction == SidebarAction.addDialouge) {

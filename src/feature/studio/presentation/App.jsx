@@ -13,7 +13,6 @@ const App = () => {
   const { thePresenterClone } = useStudioStore();
 
   useLayoutEffect(() => {
-    console.log(pixiApp.stage.children);
     if (thePresenterClone == undefined) {
       rootRef.current.appendChild(pixiApp.canvas);
     }
