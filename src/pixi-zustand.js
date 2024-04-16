@@ -19,6 +19,11 @@ const usePixiStore = create((set, get) => ({
      bringThePresenterBackToStage: () => {
           pixiApp.stage.addChild(get().thePresenter.container);
      },
+     updateThePresenter: (modified) => {
+          pixiApp.stage.removeChild(get().thePresenter.container);
+          pixiApp.stage.addChild(modified.container);
+          set(() => ({ thePresenter: modified }))
+     },
 
      startPresentation: async (actionList) => {
           let utterance = new SpeechSynthesisUtterance();

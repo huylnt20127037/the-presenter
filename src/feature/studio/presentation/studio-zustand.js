@@ -130,10 +130,18 @@ const useStudioStore = create((set, get) => ({
           }))
      },
      deleteThePresenterClone: () => {
-          pixiApp.stage.removeChild(get().thePresenterClone.container)
+          pixiApp.stage.removeChild(get().thePresenterClone?.container)
           set(() => ({
-               thePresenterClone: undefined
+               thePresenterClone: undefined,
+               isModalOpenedWithType: undefined,
           }))
+     },
+     changeBodyPart: (name, value) => {
+          switch (name) {
+               case 'hair':
+                    get().thePresenterClone.updateHair(value)
+                    break
+          }
      }
 }));
 

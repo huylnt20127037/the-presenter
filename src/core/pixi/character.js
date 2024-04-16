@@ -1,5 +1,10 @@
 import * as PIXI from 'pixi.js'
-import Hair from '../../assets/character/PNG/Hair/Blonde/blondeMan3.png';
+import Hair3 from '../../assets/character/PNG/Hair/Blonde/blondeMan3.png';
+import Hair1 from '../../assets/character/PNG/Hair/Blonde/blondeMan1.png';
+import Hair2 from '../../assets/character/PNG/Hair/Blonde/blondeMan2.png';
+import Hair5 from '../../assets/character/PNG/Hair/Blonde/blondeMan5.png';
+import Hair6 from '../../assets/character/PNG/Hair/Blonde/blondeMan6.png';
+
 import Eye from '../../assets/character/PNG/Face/Eyes/eyeBrown_large.png';
 import Head from '../../assets/character/PNG/Skin/Tint 1/tint1_head.png';
 import Nose from '../../assets/character/PNG/Face/Nose/Tint 2/tint2Nose2.png';
@@ -13,7 +18,11 @@ import NumberExtension from '../extensions/number';
 import { FacialExpression } from '../../feature/studio/data/facial-expression';
 
 let headTexture = await PIXI.Assets.load(Head);
-let hairTexture = await PIXI.Assets.load(Hair);
+let hair3Texture = await PIXI.Assets.load(Hair3);
+let hair1Texture = await PIXI.Assets.load(Hair1);
+let hair2Texture = await PIXI.Assets.load(Hair2);
+let hair5Texture = await PIXI.Assets.load(Hair5);
+let hair6Texture = await PIXI.Assets.load(Hair6);
 let eyeTexture = await PIXI.Assets.load(Eye);
 let noseTexture = await PIXI.Assets.load(Nose);
 let mouthTexture = await PIXI.Assets.load(Mouth);
@@ -26,16 +35,18 @@ let eyebrowExcitedTexture = await PIXI.Assets.load(EyeBrowExcited);
 class Character {
      humanTextures = {
           head: {
+               imagePath: Head,
                image: headTexture,
                dx: 0,
                dy: 0,
                sprite: new PIXI.Sprite(headTexture)
           },
           hair: {
-               image: hairTexture,
+               imagePath: Hair3,
+               image: hair3Texture,
                dx: 0,
                dy: -50,
-               sprite: new PIXI.Sprite(hairTexture)
+               sprite: new PIXI.Sprite(hair3Texture)
           },
           leftEyebrow: {
                image: eyebrowNeutralTexture,
@@ -62,6 +73,7 @@ class Character {
                sprite: new PIXI.Sprite(eyeTexture)
           },
           nose: {
+               imagePath: Nose,
                image: noseTexture,
                dx: 0,
                dy: 10,
@@ -171,6 +183,36 @@ class Character {
           this.interval = undefined
           this.showNormalEyebrow()
           this.showStraightMouth()
+     }
+
+     updateHair(value) {
+          switch (value) {
+               case Hair1:
+                    this.humanTextures.hair.imagePath = value
+                    this.humanTextures.hair.image = hair1Texture
+                    this.humanTextures.hair.sprite.texture = hair1Texture
+                    break
+               case Hair2:
+                    this.humanTextures.hair.imagePath = value
+                    this.humanTextures.hair.image = hair2Texture
+                    this.humanTextures.hair.sprite.texture = hair2Texture
+                    break
+               case Hair3:
+                    this.humanTextures.hair.imagePath = value
+                    this.humanTextures.hair.image = hair3Texture
+                    this.humanTextures.hair.sprite.texture = hair3Texture
+                    break
+               case Hair5:
+                    this.humanTextures.hair.imagePath = value
+                    this.humanTextures.hair.image = hair5Texture
+                    this.humanTextures.hair.sprite.texture = hair5Texture
+                    break
+               case Hair6:
+                    this.humanTextures.hair.imagePath = value
+                    this.humanTextures.hair.image = hair6Texture
+                    this.humanTextures.hair.sprite.texture = hair6Texture
+                    break
+          }
      }
 }
 

@@ -13,6 +13,7 @@ import {
 import SecondaryButton from "../../../core/components/secondary-button.jsx";
 import { HiDownload } from "react-icons/hi";
 import usePixiStore from "../../../pixi-zustand.js";
+import { cloneDeep } from "lodash";
 
 const ActionModal = () => {
   const {
@@ -23,7 +24,8 @@ const ActionModal = () => {
     updateAction,
     importScript,
   } = useStudioStore();
-  const { deleteThePresenterClone } = useStudioStore();
+  const { deleteThePresenterClone, thePresenterClone } = useStudioStore();
+  const { bringThePresenterOntoStage, updateThePresenter } = usePixiStore();
 
   const buildBody = () => {
     switch (isModalOpenedWithType) {
@@ -85,20 +87,40 @@ const ActionModal = () => {
         return <CustomizeCharacterAppearanceModal />;
     }
   };
+
+  const buildFooter = () => {
+    if (
+      Array.isArray(action.sidebarAction) ||
+      action.sidebarAction == SidebarAction.importScript
+    ) {
+      return undefined;
+    } else if (
+      action.sidebarAction == SidebarAction.customizeCharacterAppearance
+    ) {
+      return (
+        <PrimaryButton
+          message="Hoàn tất"
+          onClick={() => {
+            updateThePresenter(cloneDeep(thePresenterClone));
+            deleteThePresenterClone();
+          }}
+        />
+      );
+    } else {
+      return <PrimaryButton message="Hoàn tất" onClick={createAction} />;
+    }
+  };
+
   return (
     <AppModal
       headerText={isModalOpenedWithType}
       onClose={() => {
         setModalType();
         deleteThePresenterClone();
+        bringThePresenterOntoStage();
       }}
       body={buildBody()}
-      footer={
-        Array.isArray(action.sidebarAction) ||
-        action.sidebarAction == SidebarAction.importScript ? undefined : (
-          <PrimaryButton message="Hoàn tất" onClick={createAction} />
-        )
-      }
+      footer={buildFooter()}
       size={
         isModalOpenedWithType == SidebarAction.customizeCharacterAppearance
           ? "full"

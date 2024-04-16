@@ -5,15 +5,19 @@ import { AppColor } from "../../../theme";
 import * as PIXI from "pixi.js";
 import { Stage } from "@pixi/react";
 import AppContainer from "../../../core/components/container";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import pixiApp from "../../../core/pixi";
 import usePixiStore from "../../../pixi-zustand";
 import useStudioStore from "./studio-zustand";
+import ContainerState from "../../../core/enums/container-state";
 
 const CustomizeCharacterAppearanceModal = () => {
   const pixiPreviewRef = useRef();
-  const { thePresenter, bringThePresenterDownStage } = usePixiStore();
-  const { cloneThePresenter } = useStudioStore();
+  const { thePresenter, bringThePresenterDownStage, updateThePresenter } =
+    usePixiStore();
+  const { cloneThePresenter, thePresenterClone, changeBodyPart } =
+    useStudioStore();
+  const [updateCount, setUpdateCount] = useState(0);
 
   const buildHairChoice = () => {
     return (
@@ -22,7 +26,17 @@ const CustomizeCharacterAppearanceModal = () => {
         <AppGrid
           numberOfColumns={3}
           items={CharacterBodyPart.hair.map((e) => (
-            <AppContainer>
+            <AppContainer
+              state={
+                e === thePresenterClone?.humanTextures.hair.imagePath
+                  ? ContainerState.ACTIVE
+                  : ContainerState.DEFAULT
+              }
+              onClick={() => {
+                changeBodyPart("hair", e);
+                setUpdateCount((updateCount) => updateCount + 1);
+              }}
+            >
               <Image src={e} boxSize="72px" />
             </AppContainer>
           ))}
@@ -37,7 +51,13 @@ const CustomizeCharacterAppearanceModal = () => {
         <AppGrid
           numberOfColumns={3}
           items={CharacterBodyPart.nose.map((e) => (
-            <AppContainer>
+            <AppContainer
+              state={
+                e === thePresenterClone?.humanTextures.nose.imagePath
+                  ? ContainerState.ACTIVE
+                  : ContainerState.DEFAULT
+              }
+            >
               <Image src={e} boxSize="24px" />
             </AppContainer>
           ))}
@@ -59,11 +79,12 @@ const CustomizeCharacterAppearanceModal = () => {
 
   useEffect(() => {
     pixiPreviewRef.current.appendChild(pixiApp.canvas);
+    bringThePresenterDownStage();
     cloneThePresenter(thePresenter);
   }, []);
 
   return (
-    <Flex justify="space-between">
+    <Flex justify="center" gap="10%">
       {buildChoices()}
       {buildPreview()}
     </Flex>

@@ -9,7 +9,7 @@ import { AppColor } from "./theme.js";
 
 await pixiApp.init({
   width: 540,
-  height: 600,
+  height: 540,
   backgroundColor: new Color(AppColor.secondary).toArray(),
 });
 
