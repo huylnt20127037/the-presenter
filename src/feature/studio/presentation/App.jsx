@@ -5,15 +5,19 @@ import { AppColor } from "../../../theme";
 import Sidebar from "./sidebar";
 import PresentationScriptBox from "./presentation-script-box";
 import usePixiStore from "../../../pixi-zustand";
+import useStudioStore from "./studio-zustand";
 
 const App = () => {
   const rootRef = useRef();
-  const { bringThePresenterOntoStage } = usePixiStore();
+  const { thePresenter, bringThePresenterOntoStage } = usePixiStore();
+  const { thePresenterClone } = useStudioStore();
 
   useLayoutEffect(() => {
-    rootRef.current.appendChild(pixiApp.canvas);
-    bringThePresenterOntoStage();
-  }, []);
+    if (thePresenterClone == undefined) {
+      rootRef.current.appendChild(pixiApp.canvas);
+      bringThePresenterOntoStage();
+    }
+  }, [thePresenterClone]);
 
   return (
     <Flex

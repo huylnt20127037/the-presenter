@@ -10,7 +10,7 @@ const SidebarAction = {
   insertBreak: "Chèn khoảng nghỉ",
   importScript: "Nhập thoại từ văn bản",
   selectSpeakingAccent: "Chọn giọng nói",
-  selectCharacter: "Chọn nhân vật",
+  customizeCharacterAppearance: "Tùy chỉnh diện mạo",
 
   getIconComponent(sidebarAction) {
     switch (sidebarAction) {
@@ -22,7 +22,7 @@ const SidebarAction = {
         return <MdOutlineDescription />;
       case SidebarAction.selectSpeakingAccent:
         return <BsMusicNoteList />;
-      case SidebarAction.selectCharacter:
+      case SidebarAction.customizeCharacterAppearance:
         return <PiFinnTheHumanLight />;
     }
   },
@@ -36,7 +36,7 @@ const SidebarAction = {
         return MdOutlineDescription;
       case SidebarAction.selectSpeakingAccent:
         return BsMusicNoteList;
-      case SidebarAction.selectCharacter:
+      case SidebarAction.customizeCharacterAppearance:
         return PiFinnTheHumanLight;
     }
   },

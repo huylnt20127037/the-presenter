@@ -9,9 +9,9 @@ import {
 } from "@chakra-ui/react";
 import { AppColor } from "../../theme";
 
-const AppModal = ({ headerText, body, footer, onClose }) => {
+const AppModal = ({ headerText, body, footer, onClose, size }) => {
   return (
-    <Modal isOpen={true} onClose={onClose} size="xl">
+    <Modal isOpen={true} onClose={onClose} size={size ?? "xl"}>
       <ModalOverlay />
       <ModalContent bgColor={AppColor.primary} color={AppColor.text}>
         <ModalHeader>{headerText}</ModalHeader>

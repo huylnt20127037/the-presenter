@@ -2,7 +2,7 @@ import React from "react";
 import AppModal from "../../../core/components/modal";
 import { Stack, HStack, Text, Button } from "@chakra-ui/react";
 import useStudioStore from "./studio-zustand";
-import { AppColor } from "../../../theme";
+import CustomizeCharacterAppearanceModal from "./customize-character-appearance-modal.jsx";
 import PrimaryButton from "../../../core/components/primary-button";
 import FormInput from "../../../core/components/input";
 import SidebarAction from "../data/sidebar-action.jsx";
@@ -12,6 +12,7 @@ import {
 } from "../data/facial-expression.jsx";
 import SecondaryButton from "../../../core/components/secondary-button.jsx";
 import { HiDownload } from "react-icons/hi";
+import usePixiStore from "../../../pixi-zustand.js";
 
 const ActionModal = () => {
   const {
@@ -22,6 +23,7 @@ const ActionModal = () => {
     updateAction,
     importScript,
   } = useStudioStore();
+  const { deleteThePresenterClone } = useStudioStore();
 
   const buildBody = () => {
     switch (isModalOpenedWithType) {
@@ -79,18 +81,28 @@ const ActionModal = () => {
             />
           </Stack>
         );
+      case SidebarAction.customizeCharacterAppearance:
+        return <CustomizeCharacterAppearanceModal />;
     }
   };
   return (
     <AppModal
       headerText={isModalOpenedWithType}
-      onClose={() => setModalType()}
+      onClose={() => {
+        setModalType();
+        deleteThePresenterClone();
+      }}
       body={buildBody()}
       footer={
         Array.isArray(action.sidebarAction) ||
         action.sidebarAction == SidebarAction.importScript ? undefined : (
           <PrimaryButton message="Hoàn tất" onClick={createAction} />
         )
+      }
+      size={
+        isModalOpenedWithType == SidebarAction.customizeCharacterAppearance
+          ? "full"
+          : "lg"
       }
     />
   );

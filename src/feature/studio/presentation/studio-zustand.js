@@ -1,6 +1,8 @@
 import { create } from "zustand";
 import PresentationAction from "../data/presentation-action";
 import SidebarAction from "../data/sidebar-action.jsx";
+import { cloneDeep } from "lodash";
+import pixiApp from "../../../core/pixi/index.js";
 
 const useStudioStore = create((set, get) => ({
      isModalOpenedWithType: undefined,
@@ -8,6 +10,7 @@ const useStudioStore = create((set, get) => ({
      actionList: [],
      fromDragActionIndex: undefined,
      toDragActionIndex: undefined,
+     thePresenterClone: undefined,
 
      setModalType: (type, actionIndex) => {
           if (!type) {
@@ -117,6 +120,19 @@ const useStudioStore = create((set, get) => ({
           set(() => ({
                isModalOpenedWithType: undefined,
                actionList: tempActionList,
+          }))
+     },
+     cloneThePresenter: (thePresenter) => {
+          let result = cloneDeep(thePresenter)
+          pixiApp.stage.addChild(result.container)
+          set(() => ({
+               thePresenterClone: result
+          }))
+     },
+     deleteThePresenterClone: () => {
+          pixiApp.stage.removeChild(get().thePresenterClone.container)
+          set(() => ({
+               thePresenterClone: undefined
           }))
      }
 }));

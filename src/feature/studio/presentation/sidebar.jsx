@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Stack, Text, Button } from "@chakra-ui/react";
 import { AppColor } from "../../../theme";
 import ActionModal from "./action-modal";
 import SecondaryButton from "../../../core/components/secondary-button";
 import SidebarAction from "../data/sidebar-action.jsx";
 import useStudioStore from "./studio-zustand";
+import usePixiStore from "../../../pixi-zustand.js";
 
 const Sidebar = () => {
   const { isModalOpenedWithType, setModalType } = useStudioStore();
@@ -53,9 +54,13 @@ const Sidebar = () => {
       />
 
       <SecondaryButton
-        icon={SidebarAction.getIconComponent(SidebarAction.selectCharacter)}
-        message={SidebarAction.selectCharacter}
-        onClick={() => setModalType(SidebarAction.selectCharacter)}
+        icon={SidebarAction.getIconComponent(
+          SidebarAction.customizeCharacterAppearance
+        )}
+        message={SidebarAction.customizeCharacterAppearance}
+        onClick={() => {
+          setModalType(SidebarAction.customizeCharacterAppearance);
+        }}
       />
 
       {isModalOpenedWithType && <ActionModal />}
